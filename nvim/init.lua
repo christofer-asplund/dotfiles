@@ -26,6 +26,8 @@ g.mapleader = ' '             -- Set leader key to space
 -- Clipboard
 opt.clipboard = 'unnamedplus' -- Use system clipboard
 
+vim.opt.termguicolors = true  -- Enable true color support
+
 -- Enable Syntax Highlighting (optional since Neovim uses Tree-sitter for this)
 vim.cmd('syntax on')
 
@@ -54,22 +56,25 @@ require('packer').startup(function(use)
   use 'junegunn/fzf'                          -- Fuzzy finder
   use { 'neoclide/coc.nvim', branch = 'release' } -- Intellisense engine
 
+  -- Add the Tokyo Night theme
+  use 'folke/tokyonight.nvim'                  -- Tokyo Night theme
+
   -- Quality of Life Plugins
   use 'nvim-lualine/lualine.nvim'             -- Status line
   use 'kyazdani42/nvim-tree.lua'              -- File tree
   use 'lewis6991/gitsigns.nvim'               -- Git integration
 
   -- Syntax Highlighting and Treesitter
-use {
-  'nvim-treesitter/nvim-treesitter',
-  run = ':TSUpdate',
-  config = function()
-    require('nvim-treesitter.configs').setup {
-      ensure_installed = { "lua", "python", "javascript", "html", "css" }, -- List of languages to install
-      highlight = { enable = true }, -- Enable syntax highlighting
-    }
-  end
-}
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { "lua", "python", "javascript", "html", "css" }, -- List of languages to install
+        highlight = { enable = true }, -- Enable syntax highlighting
+      }
+    end
+  }
 
   -- Automatically set up configuration after cloning packer.nvim
   if packer_bootstrap then
@@ -77,10 +82,20 @@ use {
   end
 end)
 
+-- Tokyo Night Theme Configuration
+require('tokyonight').setup({
+  style = "night",  -- Options: "storm", "night", "day"
+  transparent = false, -- Enable transparent background (true/false)
+  terminal_colors = true, -- Enable terminal colors
+})
+
+-- Set colorscheme
+vim.cmd [[colorscheme tokyonight]]
+
 -- Lualine Configuration
 require('lualine').setup {
   options = {
-    theme = 'gruvbox',                        -- Change theme as preferred
+    theme = 'tokyonight',                        -- Set Lualine to use Tokyo Night theme
     section_separators = '',
     component_separators = ''
   }
@@ -113,5 +128,4 @@ map('n', '<leader>q', ':q<CR>', opts)              -- Quit
 map('n', '<leader>c', ':bd<CR>', opts)             -- Close buffer
 map('n', '<leader>s', ':split<CR>', opts)          -- Horizontal split
 map('n', '<leader>v', ':vsplit<CR>', opts)         -- Vertical split
-
 
