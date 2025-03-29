@@ -20,3 +20,4 @@ set smartcase
 
 " Enable mouse support
 set mouse=a
+
