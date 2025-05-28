@@ -3,6 +3,7 @@ syntax on
 
 " Display line numbers
 set number
+set relativenumber
 
 " Set tab width to 4 spaces (common in Python)
 set tabstop=4
@@ -18,6 +19,4 @@ set ignorecase
 " Override 'ignorecase' if search pattern contains uppercase letters
 set smartcase
 
-" Enable mouse support
-set mouse=a
-
+set mouse=

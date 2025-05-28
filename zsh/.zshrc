@@ -4,6 +4,8 @@ export PATH="/usr/local/sbin:$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -107,3 +109,17 @@ complete -o nospace -C /usr/local/bin/terraform terraform
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+n() {
+    nnn -c "$@"
+    if [ -f "$NNN_TMPFILE" ]; then
+        dir=$(cat "$NNN_TMPFILE")
+        [ -d "$dir" ] && cd "$dir"
+        rm -f "$NNN_TMPFILE"
+    fi
+}
+
+alias bat='batcat'
+
