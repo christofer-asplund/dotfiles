@@ -123,3 +123,7 @@ n() {
 
 alias bat='batcat'
 
+fv() {
+  find . -type f | fzf --bind "ctrl-v:execute(vim {})"
+}
+
